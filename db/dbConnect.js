@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb";
+const { MongoClient } = require("mongodb");
 require("dotenv").config();
 
 async function dbConnection() {
@@ -8,4 +8,4 @@ async function dbConnection() {
     
 }
 
-export default dbConnection;
+module.exports = dbConnection;

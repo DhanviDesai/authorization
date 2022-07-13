@@ -1,12 +1,12 @@
-import dbConnection from "./db/dbConnect";
-import express from "express";
-import { hash } from "bcrypt";
-import { json } from 'body-parser';
+const dbConnection = require("./db/dbConnect");
+const express = require("express");
+const bcrypt = require("bcrypt");
+const bodyParser = require('body-parser')
 
-import userModel from './db/userModel';
+const userModel = require('./db/userModel');
 
 const app = express();
-const jsonParser = json()
+const jsonParser = bodyParser.json()
 
 app.post('/register', jsonParser, async (req, res) => {
     const client = await dbConnection();
@@ -19,7 +19,7 @@ app.post('/register', jsonParser, async (req, res) => {
             message: "User email already exists"
         });
     } else {
-        const hashedPassword = await hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const user = userModel(req.body.email, hashedPassword);
         try {
             const result = await collection.insertOne(user);

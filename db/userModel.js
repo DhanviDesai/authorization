@@ -7,7 +7,7 @@ const userModel = (email, password) => {
     }
 };
 
-export default userModel;
+module.exports = userModel;
   
   
 
